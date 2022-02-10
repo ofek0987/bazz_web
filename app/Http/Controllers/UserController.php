@@ -9,44 +9,22 @@ use Illuminate\Database\QueryException;
 use App\Models\PsAor;
 use App\Models\PsAuth;
 use App\Models\PsEndpoint;
-use Doctrine\DBAL\Query\QueryException as QueryQueryException;
-use Illuminate\Database\Events\QueryExecuted;
 use RuntimeException;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
     private function getNewEndpoint(Request $request)
     {
         $newEndpoint = new PsEndpoint;
 
         $newEndpoint->id = $request->user["username"];
-        $newEndpoint->transport = Config::get("consts.asterisk_config.udp_transport");
+        $newEndpoint->transport = Config::get("asterisk.udp_transport");
         $newEndpoint->aors = $request->user["username"];
         $newEndpoint->auth = $request->user["username"];
-        $newEndpoint->context = Config::get("consts.asterisk_config.main_context");
-        $newEndpoint->allow = Config::get("consts.asterisk_config.allow");
-        $newEndpoint->disallow = Config::get("consts.asterisk_config.disallow");
-        $newEndpoint->direct_media = Config::get("consts.asterisk_config.direct_media");
+        $newEndpoint->context = Config::get("asterisk.main_context");
+        $newEndpoint->allow = Config::get("asterisk.allow");
+        $newEndpoint->disallow = Config::get("asterisk.disallow");
+        $newEndpoint->direct_media = Config::get("asterisk.direct_media");
 
         return $newEndpoint;
     }
@@ -64,7 +42,7 @@ class UserController extends Controller
     {
         $newAuth = new PsAuth;
 
-        $newAuth->auth_type = Config::get("consts.asterisk_config.auth_type");
+        $newAuth->auth_type = Config::get("asterisk.auth_type");
         $newAuth->password = $request->user["password"];
         $newAuth->id = $request->user["username"];
         $newAuth->username = $request->user["username"];
@@ -130,12 +108,6 @@ class UserController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         if ($this->isUserCompleteOnDb($request->user["username"]))
@@ -172,17 +144,11 @@ class UserController extends Controller
             return new Response("old password does not match", 400);
         }
         $userAuth->password = $request["newPassword"];
-        $isSaved = $userAuth->save();
-        if (!$isSaved)
+        if (!$userAuth->save())
         {
             return new Response("password did not changed", 500);
         }
         return new Response("password changed!", 200);
             
-    }
-
-    public function destroy($id)
-    {
-        //
     }
 }
