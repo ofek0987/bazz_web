@@ -73,7 +73,7 @@ class UserController extends Controller
 
     }
 
-    private function cleanInCompleteUser(string $id) 
+    private function cleanIncompleteUser(string $id) 
     {
         if (PsEndpoint::where("id", $id)->exists())
         {
@@ -100,7 +100,7 @@ class UserController extends Controller
     {   
         if (!$this->isUserCompleteOnDb($request->user["username"]))
         {
-            $this->cleanInCompleteUser($request->user["username"]);
+            $this->cleanIncompleteUser($request->user["username"]);
         }
         throw new RuntimeException;
     }
@@ -138,6 +138,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        if ($this->isUserCompleteOnDb($request->user["username"]))
+        {
+            return new Response("user ".$request->user["username"]." already exists", 400);
+        }
         try
         {
             $this->saveNewUser($request);
