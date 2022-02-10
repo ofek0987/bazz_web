@@ -22,5 +22,6 @@ Route::prefix("/user")->group(function()
     {
         Route::post("/create", [UserController::class, "store"]);
         Route::post("/search", [UserController::class, "search"]);
+        Route::post("/changePassword", [UserController::class, "changePassword"]);
     }
 );

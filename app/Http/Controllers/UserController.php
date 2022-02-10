@@ -160,6 +160,27 @@ class UserController extends Controller
         return PsEndpoint::where("id", "like", "%".$request->match["username"]."%")->get(["id"]);
     }
 
+    public function changePassword(Request $request)
+    {
+        $userAuth = PsAuth::find($request["username"]);
+        if (!$userAuth)
+        {
+            return new Response("no username ".$request["username"], 400);
+        }
+        if ($userAuth->password != $request["oldPassword"])
+        { 
+            return new Response("old password does not match", 400);
+        }
+        $userAuth->password = $request["newPassword"];
+        $isSaved = $userAuth->save();
+        if (!$isSaved)
+        {
+            return new Response("password did not changed", 500);
+        }
+        return new Response("password changed!", 200);
+            
+    }
+
     public function destroy($id)
     {
         //
