@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PsAor;
 use Illuminate\Http\Request;
 
-class PsAorController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +40,10 @@ class PsAorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PsAor  $psAor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(PsAor $psAor)
+    public function show($id)
     {
         //
     }
@@ -52,10 +51,10 @@ class PsAorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PsAor  $psAor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(PsAor $psAor)
+    public function edit($id)
     {
         //
     }
@@ -64,10 +63,10 @@ class PsAorController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PsAor  $psAor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PsAor $psAor)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -75,10 +74,10 @@ class PsAorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PsAor  $psAor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PsAor $psAor)
+    public function destroy($id)
     {
         //
     }
