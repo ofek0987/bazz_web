@@ -9,6 +9,8 @@ use Illuminate\Database\QueryException;
 use App\Models\PsAor;
 use App\Models\PsAuth;
 use App\Models\PsEndpoint;
+use Dotenv\Exception\ValidationException;
+use Illuminate\Support\Facades\Validator;
 use RuntimeException;
 
 class UserController extends Controller
@@ -109,7 +111,12 @@ class UserController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   
+        $validationSchema = Config::get("validation.schemas.store");
+        if (Validator::make($request->all(), $validationSchema)->fails())
+        {
+            return new Response("Invalid request", 400);    
+        }
         if ($this->isUserCompleteOnDb($request->user["username"]))
         {
             return new Response("user ".$request->user["username"]." already exists", 400);
@@ -129,11 +136,21 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        $validationSchema = Config::get("validation.schemas.search");
+        if (Validator::make($request->all(), $validationSchema)->fails())
+        {
+            return new Response("Invalid request", 400);    
+        }
         return PsEndpoint::where("id", "like", "%".$request->match["username"]."%")->get(["id"]);
     }
 
     public function changePassword(Request $request)
     {
+        $validationSchema = Config::get("validation.schemas.change_password");
+        if (Validator::make($request->all(), $validationSchema)->fails())
+        {
+            return new Response("Invalid request", 400);    
+        }
         $userAuth = PsAuth::find($request["username"]);
         if (!$userAuth)
         {
