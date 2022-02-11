@@ -10,13 +10,15 @@ import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import SignUp from "./components/SignUp.vue"
 import Navbar from "./components/Navbar.vue"
+import SearchUsers from "./components/SearchUsers.vue"
 
 
 
 const routes = [
   {path: "/", component: Home},
   {path: "/login", component: Login},
-  {path:"/signup", component: SignUp}
+  {path:"/signup", component: SignUp},
+  {path:"/searchUsers", component: SearchUsers}
 ]
 
 
