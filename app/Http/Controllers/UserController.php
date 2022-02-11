@@ -36,6 +36,7 @@ class UserController extends Controller
         $newAor = new PsAor;
 
         $newAor->id = $request->user["username"];
+        $newAor->max_contacts = Config::get("asterisk.max_contacts");
 
         return $newAor;
     }

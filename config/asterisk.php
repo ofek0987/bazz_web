@@ -8,6 +8,7 @@ return [
         "webrtc" => "yes",
         "udp_transport" => "transport-udp",
         "main_context" => "main",
+        "max_contacts" => 1,
 ];
 
 ?>
