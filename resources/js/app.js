@@ -9,6 +9,7 @@ import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
 import Home from './components/Home.vue'
 import Login from './components/Login.vue'
 import SignUp from "./components/SignUp.vue"
+import Navbar from "./components/Navbar.vue"
 
 
 
@@ -25,6 +26,7 @@ const router = createRouter({
 })
 
 const app = createApp({})
+app.component("nav-bar", Navbar)
 app.use(router)
 app.use(BootstrapVue3)
 app.mount("#app")
