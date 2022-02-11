@@ -7,8 +7,11 @@
 
     </head>
 
-    <body>
+    <body class="bg-light">
         <div id="app">
+            <b-nav tabs fiil class="bg-info">
+                <b-nav-item active>Bazzzzzzzzzzzzzzzzzzzzzz</b-nav-item>
+            </b-nav>
         <router-view></router-view>
         </div>
     </body>
