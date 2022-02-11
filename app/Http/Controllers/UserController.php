@@ -9,6 +9,7 @@ use Illuminate\Database\QueryException;
 use App\Models\PsAor;
 use App\Models\PsAuth;
 use App\Models\PsEndpoint;
+use App\Http\Resources\UserResource;
 use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Facades\Validator;
 use RuntimeException;
@@ -142,7 +143,7 @@ class UserController extends Controller
         {
             return new Response("Invalid request", 400);    
         }
-        return PsEndpoint::where("id", "like", "%".$request->match["username"]."%")->get(["id"]);
+        return UserResource::collection(PsEndpoint::where("id", "like", "%".$request->match["username"]."%")->get());
     }
 
     public function changePassword(Request $request)
