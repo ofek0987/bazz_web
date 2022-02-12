@@ -2,13 +2,15 @@
 
 return [
         "auth_type" => "userpass",
-        "direct_media" => "yes",
+        "direct_media" => "no",
         "allow" => "ulaw;alaw;h264",
         "disallow" => "all",
         "webrtc" => "yes",
-        "udp_transport" => "transport-udp",
-        "main_context" => "main",
+        "transport" => "transport-ws",
+        "context" => "default",
         "max_contacts" => 1,
+        "max_audio_streams" => 10,
+        "max_video_streams" => 10,
 ];
 
 ?>

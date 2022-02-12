@@ -21,10 +21,12 @@ class UserController extends Controller
         $newEndpoint = new PsEndpoint;
 
         $newEndpoint->id = $request->user["username"];
-        $newEndpoint->transport = Config::get("asterisk.udp_transport");
+        $newEndpoint->transport = Config::get("asterisk.transport");
+        $newEndpoint->max_audio_streams = Config::get("asterisk.max_audio_streams");
+        $newEndpoint->max_video_streams = Config::get("asterisk.max_video_streams");
         $newEndpoint->aors = $request->user["username"];
         $newEndpoint->auth = $request->user["username"];
-        $newEndpoint->context = Config::get("asterisk.main_context");
+        $newEndpoint->context = Config::get("asterisk.context");
         $newEndpoint->allow = Config::get("asterisk.allow");
         $newEndpoint->disallow = Config::get("asterisk.disallow");
         $newEndpoint->direct_media = Config::get("asterisk.direct_media");
